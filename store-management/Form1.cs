@@ -6,6 +6,29 @@ namespace store_management
     {
         private DatabaseConnect db = new DatabaseConnect();
         private Helper helper = new Helper();
+
+        private void ResetValues()
+        {
+            txtMaHoaDon.Text = "";
+            txtNgayBan.Text = DateTime.Now.ToShortDateString();
+            cbMaNV.Text = "";
+            cbMaKH.Text = "";
+            txtTongTien.Text = "0";
+            // lblBangChu.Text = "Bằng chữ: ";
+            cbMaHang.Text = "";
+            txtSoLuong.Text = "";
+            txtGiamGia.Text = "0";
+            txtThanhTien.Text = "0";
+        }
+
+        private void ResetValuesHang()
+        {
+            cbMaHang.Text = "";
+            txtSoLuong.Text = "";
+            txtGiamGia.Text = "0";
+            txtThanhTien.Text = "0";
+        }
+
         void LoadStaff()
         {
             string sql = "select * from staff";
@@ -27,6 +50,13 @@ namespace store_management
             cbMaHang.SelectedIndex = -1;
         }
 
+        void LoadSaleReceipt()
+        {
+            string sql = "select * from sale_receipt";
+            helper.FillCombo(sql, cbMaDonHang, "id", "id");
+            cbMaDonHang.SelectedIndex = -1;
+        }
+
         void LoadDataGridView()
         {
             string sql = "select d.product_id, p.name, d.quantity, p.sale_price, d.discount, d.unit_price " +
@@ -41,6 +71,18 @@ namespace store_management
             dataGridView1.Columns[3].HeaderText = "Đơn giá";
             dataGridView1.Columns[4].HeaderText = "Giảm giá";
             dataGridView1.Columns[5].HeaderText = "Thành tiền";
+        }
+
+        void LoadInfoSaleReceipt()
+        {
+            string sql = "select sale_date from sale_receipt where id = '" + txtMaHoaDon.Text + "'";
+            txtNgayBan.Text = helper.GetFieldValues(sql);
+            sql = "select staff_id from sale_receipt where id = '" + txtMaHoaDon.Text + "'";
+            cbMaNV.Text = helper.GetFieldValues(sql);
+            sql = "select customer_id from sale_receipt where id = '" + txtMaHoaDon.Text + "'";
+            cbMaKH.Text = helper.GetFieldValues(sql);
+            sql = "select total from sale_receipt where id = '" + txtMaHoaDon.Text + "'";
+            txtTongTien.Text = helper.GetFieldValues(sql);
         }
 
         public Form1()
@@ -59,12 +101,18 @@ namespace store_management
             LoadCustomer();
             LoadProduct();
             LoadDataGridView();
+            LoadSaleReceipt();
             btnThem.Enabled = true;
             btnLuu.Enabled = false;
             btnHuy.Enabled = false;
             btnIn.Enabled = false;
             txtGiamGia.Text = "0";
             txtThanhTien.Text = "0";
+            cbMaNV.Enabled = false;
+            cbMaKH.Enabled = false;
+            cbMaHang.Enabled = false;
+            txtGiamGia.Enabled = false;
+            txtSoLuong.Enabled = false;
         }
 
         private void cbMaNV_SelectedIndexChanged(object sender, EventArgs e)
@@ -101,6 +149,12 @@ namespace store_management
             btnLuu.Enabled = true;
             btnIn.Enabled = false;
             btnThem.Enabled = false;
+
+            cbMaNV.Enabled = true;
+            cbMaKH.Enabled = true;
+            cbMaHang.Enabled = true;
+            txtGiamGia.Enabled = true;
+            txtSoLuong.Enabled = true;
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
@@ -182,9 +236,118 @@ namespace store_management
                 "'" + txtGiamGia.Text + "'," +
                 "'" + txtThanhTien.Text + "'" +
                 ")";
-            label19.Text = sql;
             db.DataChange(sql);
             LoadDataGridView();
+            total = Convert.ToDouble(helper.GetFieldValues("select total from sale_receipt where id = '" + txtMaHoaDon.Text + "'"));
+            newTotal = total + Convert.ToDouble(txtThanhTien.Text);
+            sql = "update sale_receipt set total = '" + newTotal + "'" + " where id = '" + txtMaHoaDon.Text + "'";
+            db.DataChange(sql);
+            txtTongTien.Text = newTotal.ToString();
+            // lbTotalByString.Text = "Bằng chữ: " + helper.ConvertNumberToString(newTotal.ToString());
+            ResetValuesHang();
+        }
+
+        private void btnDong_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(1);
+        }
+
+        private void txtSoLuong_TextChanged(object sender, EventArgs e)
+        {
+            double tt, sl, dg, gg;
+            if (txtSoLuong.Text == "")
+                sl = 0;
+            else
+                sl = Convert.ToDouble(txtSoLuong.Text);
+            if (txtGiamGia.Text == "")
+                gg = 0;
+            else
+                gg = Convert.ToDouble(txtGiamGia.Text);
+            if (txtDonGia.Text == "")
+                dg = 0;
+            else
+                dg = Convert.ToDouble(txtDonGia.Text);
+            tt = sl * dg - sl * dg * gg / 100;
+            txtThanhTien.Text = tt.ToString();
+        }
+
+        private void txtGiamGia_TextChanged(object sender, EventArgs e)
+        {
+            double tt, sl, dg, gg;
+            if (txtSoLuong.Text == "")
+                sl = 0;
+            else
+                sl = Convert.ToDouble(txtSoLuong.Text);
+            if (txtGiamGia.Text == "")
+                gg = 0;
+            else
+                gg = Convert.ToDouble(txtGiamGia.Text);
+            if (txtDonGia.Text == "")
+                dg = 0;
+            else
+                dg = Convert.ToDouble(txtDonGia.Text);
+            tt = sl * dg - sl * dg * gg / 100;
+            txtThanhTien.Text = tt.ToString();
+        }
+
+        private void btnIn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            if (cbMaDonHang.Text == "")
+            {
+                MessageBox.Show("Bạn phải chọn một mã hóa đơn để tìm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cbMaHang.Focus();
+                return;
+            }
+            txtMaHoaDon.Text = cbMaDonHang.Text;
+            LoadInfoSaleReceipt();
+            LoadDataGridView();
+            btnDong.Enabled = true;
+            btnLuu.Enabled = true;
+            btnIn.Enabled = true;
+            cbMaHang.SelectedIndex = -1;
+        }
+
+        private void txtSoLuong_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void txtGiamGia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        {
+            string MaHangXoa, sql;
+            double ThanhTienXoa, SLXoa, SL, SLCon, Tong, TongMoi;
+
+            var res = MessageBox.Show("Bạn có chắc chắn muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res == DialogResult.Yes)
+            {
+                MaHangXoa = dataGridView1.CurrentRow.Cells["product_id"].Value.ToString();
+                SLXoa = Convert.ToDouble(dataGridView1.CurrentRow.Cells["quantity"].Value.ToString());
+                ThanhTienXoa = Convert.ToDouble(dataGridView1.CurrentRow.Cells["unit_price"].Value.ToString());
+
+                sql = "delete sale_receipt_detail" +
+                    " where sale_receipt_id = '" + txtMaHoaDon.Text + "' and product_id = '" + MaHangXoa + "'";
+                db.DataChange(sql);
+                // TODO: update quantity for product
+                Tong = Convert.ToDouble(helper.GetFieldValues("select total from sale_receipt" +
+                    " where id = '" + txtMaHoaDon.Text + "'"));
+                TongMoi = Tong - ThanhTienXoa;
+                sql = "update sale_receipt set total = '" + TongMoi + "' where id = '" + txtMaHoaDon.Text + "'";
+                db.DataChange(sql);
+                txtTongTien.Text = TongMoi.ToString();
+                LoadDataGridView();
+            }
         }
     }
 }
