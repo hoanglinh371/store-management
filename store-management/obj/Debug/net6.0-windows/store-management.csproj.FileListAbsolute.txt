@@ -24,3 +24,6 @@ C:\Users\hoang\Workspace\winform\store-management\store-management\bin\Debug\net
 C:\Users\hoang\Workspace\winform\store-management\store-management\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.CopyComplete
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.FormLogin.resources
+C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.Dashboard.resources
+C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.ResolveComReference.cache

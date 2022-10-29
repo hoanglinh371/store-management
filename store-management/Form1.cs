@@ -1,4 +1,6 @@
 ﻿using store_management.helpers;
+using System.Data;
+using COMExcel = Microsoft.Office.Interop.Excel;
 
 namespace store_management
 {
@@ -7,6 +9,12 @@ namespace store_management
         private DatabaseConnect db = new DatabaseConnect();
         private Helper helper = new Helper();
 
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        // other functions
         private void ResetValues()
         {
             txtMaHoaDon.Text = "";
@@ -31,39 +39,38 @@ namespace store_management
 
         void LoadStaff()
         {
-            string sql = "select * from staff";
-            helper.FillCombo(sql, cbMaNV, "id", "id");
+            string sql = "SELECT * FROM NhanVien";
+            helper.FillCombo(sql, cbMaNV, "MaNV", "MaNV");
             cbMaNV.SelectedIndex = -1;
         }
 
         void LoadCustomer()
         {
-            string sql = "select * from customer";
-            helper.FillCombo(sql, cbMaKH, "id", "id");
+            string sql = "SELECT * FROM KhachHang";
+            helper.FillCombo(sql, cbMaKH, "MaKH", "MaKH");
             cbMaKH.SelectedIndex = -1;
         }
 
         void LoadProduct()
         {
-            string sql = "select * from product";
-            helper.FillCombo(sql, cbMaHang, "id", "id");
+            string sql = "SELECT * FROM SanPham";
+            helper.FillCombo(sql, cbMaHang, "MaSP", "MaSP");
             cbMaHang.SelectedIndex = -1;
         }
 
         void LoadSaleReceipt()
         {
-            string sql = "select * from sale_receipt";
-            helper.FillCombo(sql, cbMaDonHang, "id", "id");
+            string sql = "SELECT * FROM HoaDonBan";
+            helper.FillCombo(sql, cbMaDonHang, "SoHDB", "SoHDB");
             cbMaDonHang.SelectedIndex = -1;
         }
 
         void LoadDataGridView()
         {
-            string sql = "select d.product_id, p.name, d.quantity, p.sale_price, d.discount, d.unit_price " +
-                "from sale_receipt_detail as d " +
-                "inner join product as p " +
-                "on d.product_id = p.id " +
-                "where d.sale_receipt_id = '" + txtMaHoaDon.Text + "'";
+            string sql = "SELECT CTHDB.MaSP, SP.TenSP, CTHDB.SLBan, SP.DonGiaBan, CTHDB.GiamGia, CTHDB.ThanhTien " +
+                "FROM ChiTietHDB AS CTHDB " +
+                "INNER JOIN SanPham AS SP ON CTHDB.MaSP = SP.MaSP " +
+                "WHERE CTHDB.SoHDB = '" + txtMaHoaDon.Text + "'";
             dataGridView1.DataSource = db.DataReader(sql);
             dataGridView1.Columns[0].HeaderText = "Mã Hàng";
             dataGridView1.Columns[1].HeaderText = "Tên hàng";
@@ -75,21 +82,17 @@ namespace store_management
 
         void LoadInfoSaleReceipt()
         {
-            string sql = "select sale_date from sale_receipt where id = '" + txtMaHoaDon.Text + "'";
+            string sql = "SELECT NgayBan FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
             txtNgayBan.Text = helper.GetFieldValues(sql);
-            sql = "select staff_id from sale_receipt where id = '" + txtMaHoaDon.Text + "'";
+            sql = "SELECT MaNV FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
             cbMaNV.Text = helper.GetFieldValues(sql);
-            sql = "select customer_id from sale_receipt where id = '" + txtMaHoaDon.Text + "'";
+            sql = "SELECT MaKH FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
             cbMaKH.Text = helper.GetFieldValues(sql);
-            sql = "select total from sale_receipt where id = '" + txtMaHoaDon.Text + "'";
+            sql = "SELECT TriGia FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
             txtTongTien.Text = helper.GetFieldValues(sql);
         }
 
-        public Form1()
-        {
-            InitializeComponent();
-        }
-
+        // handle form events
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Environment.Exit(1);
@@ -104,7 +107,7 @@ namespace store_management
             LoadSaleReceipt();
             btnThem.Enabled = true;
             btnLuu.Enabled = false;
-            btnHuy.Enabled = false;
+            btnXoa.Enabled = false;
             btnIn.Enabled = false;
             txtGiamGia.Text = "0";
             txtThanhTien.Text = "0";
@@ -115,37 +118,39 @@ namespace store_management
             txtSoLuong.Enabled = false;
         }
 
+        // handle combox events
         private void cbMaNV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string sql = "select name from staff where id = '" + cbMaNV.SelectedValue + "'";
+            string sql = "SELECT TenNV FROM NhanVien WHERE MaNV = '" + cbMaNV.SelectedValue + "'";
             txtTenNV.Text = helper.GetFieldValues(sql);
         }
 
         private void cbMaKH_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string sql = "select name from customer where id = '" + cbMaKH.SelectedValue + "'";
+            string sql = "SELECT TenKH FROM KhachHang WHERE MaKH = '" + cbMaKH.SelectedValue + "'";
             txtTenKH.Text = helper.GetFieldValues(sql);
 
-            sql = "select address from customer where id = '" + cbMaKH.SelectedValue + "'";
+            sql = "SELECT DiaChi FROM KhachHang WHERE MaKH = '" + cbMaKH.SelectedValue + "'";
             txtDiaChi.Text = helper.GetFieldValues(sql);
 
-            sql = "select phone_number from customer where id = '" + cbMaKH.SelectedValue + "'";
+            sql = "SELECT SDT FROM KhachHang WHERE MaKH = '" + cbMaKH.SelectedValue + "'";
             txtSDT.Text = helper.GetFieldValues(sql);
         }
 
         private void cbMaHang_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string sql = "select name from product where id = '" + cbMaHang.SelectedValue + "'";
+            string sql = "SELECT TenSP FROM SanPham WHERE MaSP = '" + cbMaHang.SelectedValue + "'";
             txtTenHang.Text = helper.GetFieldValues(sql);
 
-            sql = "select sale_price from product where id = '" + cbMaHang.SelectedValue + "'";
+            sql = "SELECT DonGiaBan FROM SanPham WHERE MaSP = '" + cbMaHang.SelectedValue + "'";
             txtDonGia.Text = helper.GetFieldValues(sql);
         }
 
+        // handle button events
         private void btnThem_Click(object sender, EventArgs e)
         {
             txtMaHoaDon.Text = helper.CreateKey("HDB");
-            btnHuy.Enabled = false;
+            btnXoa.Enabled = false;
             btnLuu.Enabled = true;
             btnIn.Enabled = false;
             btnThem.Enabled = false;
@@ -159,9 +164,11 @@ namespace store_management
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            btnIn.Enabled = true;
+            btnXoa.Enabled = true;
             string sql;
             double quantity, total, newTotal;
-            sql = "select id from sale_receipt where id = '" + txtMaHoaDon.Text + "'";
+            sql = "SELECT SoHDB FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
             if (!helper.CheckKey(sql))
             {
                 if (txtNgayBan.Text.Length == 0)
@@ -182,8 +189,8 @@ namespace store_management
                     cbMaKH.Focus();
                     return;
                 }
-                sql = "insert into sale_receipt(id, staff_id, customer_id, sale_date, total) " +
-                    "values ('" + txtMaHoaDon.Text.Trim() + "'," +
+                sql = "INSERT INTO HoaDonBan(SoHDB, MaNV, MaKH, NgayBan, TriGia) " +
+                    "VALUES ('" + txtMaHoaDon.Text.Trim() + "'," +
                     "'" + cbMaNV.SelectedValue + "'," +
                     "'" + cbMaKH.SelectedValue + "'," +
                     "'" + txtNgayBan.Value + "'," +
@@ -211,24 +218,29 @@ namespace store_management
                 txtGiamGia.Focus();
                 return;
             }
-            sql = "select product_id from sale_receipt_detail where product_id = '" + cbMaHang.SelectedValue + "' " +
-                "and sale_receipt_id = '" + txtMaHoaDon.Text + "'";
+            sql = "SELECT MaSP FROM ChiTietHDB " +
+                "WHERE MaSP = '" + cbMaHang.SelectedValue + "'" + " AND SoHDB = '" + txtMaHoaDon.Text + "'";
             if (helper.CheckKey(sql))
             {
                 MessageBox.Show("Mã hàng này đã có, bạn phải nhập mã khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cbMaHang.Focus();
                 return;
             }
-            quantity = Convert.ToDouble(helper.GetFieldValues("SELECT amount FROM product WHERE id = '" + cbMaHang.SelectedValue + "'"));
+            quantity = Convert.ToDouble(helper.GetFieldValues("SELECT SoLuongTonKho FROM SanPham " +
+                                                              "WHERE id = '" + cbMaHang.SelectedValue + "'"));
             if (Convert.ToDouble(txtSoLuong.Text) > quantity)
             {
-                MessageBox.Show("Số lượng mặt hàng này chỉ còn " + quantity, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Số lượng mặt hàng này chỉ còn " + quantity,
+                                    "Thông báo",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information
+                                );
                 txtSoLuong.Text = "";
                 txtSoLuong.Focus();
                 return;
             }
-            sql = "insert into sale_receipt_detail(sale_receipt_id, product_id, quantity, price, discount, unit_price) " +
-                "values (" +
+            sql = "INSERT INTO ChiTietHDB(SoHDB, MaSP, SLBan, DonGia, GiamGia, ThanhTien) " +
+                "VALUES (" +
                 "'" + txtMaHoaDon.Text + "'," +
                 "'" + cbMaHang.SelectedValue + "'," +
                 "'" + txtSoLuong.Text + "'," +
@@ -238,12 +250,14 @@ namespace store_management
                 ")";
             db.DataChange(sql);
             LoadDataGridView();
-            total = Convert.ToDouble(helper.GetFieldValues("select total from sale_receipt where id = '" + txtMaHoaDon.Text + "'"));
+            total = Convert.ToDouble(helper.GetFieldValues("SELECT TriGia FROM HoaDonBan" +
+                                                           " where id = '" + txtMaHoaDon.Text + "'"));
             newTotal = total + Convert.ToDouble(txtThanhTien.Text);
-            sql = "update sale_receipt set total = '" + newTotal + "'" + " where id = '" + txtMaHoaDon.Text + "'";
+            sql = "UPDATE HoaDonBan SET TriGia = '" + newTotal + "'" +
+                    "WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
             db.DataChange(sql);
             txtTongTien.Text = newTotal.ToString();
-            // lbTotalByString.Text = "Bằng chữ: " + helper.ConvertNumberToString(newTotal.ToString());
+            lbTotalByString.Text = "Bằng chữ: " + helper.ConvertNumberToString(newTotal);
             ResetValuesHang();
         }
 
@@ -252,9 +266,143 @@ namespace store_management
             Environment.Exit(1);
         }
 
+        private void btnIn_Click(object sender, EventArgs e)
+        {
+            COMExcel.Application exApp = new COMExcel.Application();
+            COMExcel.Workbook exBook; // Workbook
+            COMExcel.Worksheet exSheet; // Worksheet
+            COMExcel.Range exRange;
+            string sql;
+            int hang = 0, cot = 0;
+            DataTable tblThongtinHD, tblThongtinHang;
+            exBook = exApp.Workbooks.Add(COMExcel.XlWBATemplate.xlWBATWorksheet);
+            exSheet = exBook.Worksheets[1];
+            // format
+            exRange = exSheet.Cells[1, 1];
+            exRange.Range["A1:Z300"].Font.Name = "Times new roman";
+            exRange.Range["A1:B3"].Font.Size = 10;
+            exRange.Range["A1:B3"].Font.Bold = true;
+            exRange.Range["A1:B3"].Font.ColorIndex = 5; //Màu xanh da trời
+            exRange.Range["A1:A1"].ColumnWidth = 7;
+            exRange.Range["B1:B1"].ColumnWidth = 15;
+            exRange.Range["A1:B1"].MergeCells = true;
+            exRange.Range["A1:B1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["A1:B1"].Value = "CrWN Store";
+            exRange.Range["A2:B2"].MergeCells = true;
+            exRange.Range["A2:B2"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["A2:B2"].Value = "Thanh Xuân, Hà Nội";
+            exRange.Range["A3:B3"].MergeCells = true;
+            exRange.Range["A3:B3"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["A3:B3"].Value = "Điện thoại: 0393113485";
+            exRange.Range["C2:E2"].Font.Size = 16;
+            exRange.Range["C2:E2"].Font.Bold = true;
+            exRange.Range["C2:E2"].Font.ColorIndex = 3; //Màu đỏ
+            exRange.Range["C2:E2"].MergeCells = true;
+            exRange.Range["C2:E2"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["C2:E2"].Value = "HÓA ĐƠN BÁN";
+            // sale_receipt infomations
+            sql = "SELECT HDB.SoHDB, HDB.NgayBan, HDB.TriGia, KH.TenKH, KH.DiaChi, KH.SDT, NV.TenNV " +
+                "FROM HoaDonBan AS HDB " +
+                "INNER JOIN KhachHang AS KH ON HDB.MaKH = KH.MaKH " +
+                "INNER JOIN NhanVien AS NV ON HDB.MaNV = NV.MaNV " +
+                "WHERE HDB.SoHDB = N'" + txtMaHoaDon.Text + "'";
+            tblThongtinHD = db.DataReader(sql);
+            exRange.Range["B6:C9"].Font.Size = 12;
+            exRange.Range["B6:B6"].Value = "Mã hóa đơn:";
+            exRange.Range["C6:E6"].MergeCells = true;
+            exRange.Range["C6:E6"].Value = tblThongtinHD.Rows[0][0].ToString();
+            exRange.Range["B7:B7"].Value = "Khách hàng:";
+            exRange.Range["C7:E7"].MergeCells = true;
+            exRange.Range["C7:E7"].Value = tblThongtinHD.Rows[0][3].ToString();
+            exRange.Range["B8:B8"].Value = "Địa chỉ:";
+            exRange.Range["C8:E8"].MergeCells = true;
+            exRange.Range["C8:E8"].Value = tblThongtinHD.Rows[0][4].ToString();
+            exRange.Range["B9:B9"].Value = "Điện thoại:";
+            exRange.Range["C9:E9"].MergeCells = true;
+            exRange.Range["C9:E9"].Value = tblThongtinHD.Rows[0][5].ToString();
+            // sale_receipt_detail infomations
+            sql = "SELECT SP.TenSP, HDB.SLBan, SP.DonGiaBan, HDB.GiamGia, HDB.ThanhTien " +
+                  "FROM ChiTietHDB AS HDB " +
+                  "INNER JOIN SanPham AS SP ON HDB.MaSP = SP.MaSP " +
+                  "WHERE HDB.SoHDB = N'" + txtMaHoaDon.Text + "'";
+            tblThongtinHang = db.DataReader(sql);
+            // title
+            exRange.Range["A11:F11"].Font.Bold = true;
+            exRange.Range["A11:F11"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["C11:F11"].ColumnWidth = 12;
+            exRange.Range["A11:A11"].Value = "STT";
+            exRange.Range["B11:B11"].Value = "Tên hàng";
+            exRange.Range["C11:C11"].Value = "Số lượng";
+            exRange.Range["D11:D11"].Value = "Đơn giá";
+            exRange.Range["E11:E11"].Value = "Giảm giá";
+            exRange.Range["F11:F11"].Value = "Thành tiền";
+            for (hang = 0; hang < tblThongtinHang.Rows.Count; hang++)
+            {
+                // fill # into col-1 from row-12
+                exSheet.Cells[1][hang + 12] = hang + 1;
+                for (cot = 0; cot < tblThongtinHang.Columns.Count; cot++)
+                // fill product from col-2, row-12
+                {
+                    exSheet.Cells[cot + 2][hang + 12] = tblThongtinHang.Rows[hang][cot].ToString();
+                    if (cot == 3) exSheet.Cells[cot + 2][hang + 12] = tblThongtinHang.Rows[hang][cot].ToString() + "%";
+                }
+            }
+            exRange = exSheet.Cells[cot][hang + 14];
+            exRange.Font.Bold = true;
+            exRange.Value2 = "Tổng tiền:";
+            exRange = exSheet.Cells[cot + 1][hang + 14];
+            exRange.Font.Bold = true;
+            exRange.Value2 = tblThongtinHD.Rows[0][2].ToString();
+            exRange = exSheet.Cells[1][hang + 15]; //Ô A1 
+            exRange.Range["A1:F1"].MergeCells = true;
+            exRange.Range["A1:F1"].Font.Bold = true;
+            exRange.Range["A1:F1"].Font.Italic = true;
+            exRange.Range["A1:F1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignRight;
+            // exRange.Range["A1:F1"].Value = "Bằng chữ: " + helper.ConvertNumberToString(tblThongtinHD.Rows[0][2].ToString());
+            exRange = exSheet.Cells[4][hang + 17]; //Ô A1 
+            exRange.Range["A1:C1"].MergeCells = true;
+            exRange.Range["A1:C1"].Font.Italic = true;
+            exRange.Range["A1:C1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            DateTime d = Convert.ToDateTime(tblThongtinHD.Rows[0][1]);
+            exRange.Range["A1:C1"].Value = "Hà Nội, ngày " + d.Day + " tháng " + d.Month + " năm " + d.Year;
+            exRange.Range["A2:C2"].MergeCells = true;
+            exRange.Range["A2:C2"].Font.Italic = true;
+            exRange.Range["A2:C2"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["A2:C2"].Value = "Nhân viên bán hàng";
+            exRange.Range["A6:C6"].MergeCells = true;
+            exRange.Range["A6:C6"].Font.Italic = true;
+            exRange.Range["A6:C6"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["A6:C6"].Value = tblThongtinHD.Rows[0][6];
+            exSheet.Name = "Hóa đơn bán";
+            exApp.Visible = true;
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            btnXoa.Enabled = true;
+            if (cbMaDonHang.Text == "")
+            {
+                MessageBox.Show("Bạn phải chọn một mã hóa đơn để tìm",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                                );
+                cbMaHang.Focus();
+                return;
+            }
+            txtMaHoaDon.Text = cbMaDonHang.Text;
+            LoadInfoSaleReceipt();
+            LoadDataGridView();
+            btnDong.Enabled = true;
+            btnLuu.Enabled = true;
+            btnIn.Enabled = true;
+            cbMaHang.SelectedIndex = -1;
+        }
+        
+        // handle textbox events
         private void txtSoLuong_TextChanged(object sender, EventArgs e)
         {
-            double tt, sl, dg, gg;
+            double tt, sl, dg, gg; // thanhTien, soLuong, donGia, giamGia
             if (txtSoLuong.Text == "")
                 sl = 0;
             else
@@ -273,7 +421,7 @@ namespace store_management
 
         private void txtGiamGia_TextChanged(object sender, EventArgs e)
         {
-            double tt, sl, dg, gg;
+            double tt, sl, dg, gg; // thanhTien, soLuong, donGia, giamGia
             if (txtSoLuong.Text == "")
                 sl = 0;
             else
@@ -290,28 +438,6 @@ namespace store_management
             txtThanhTien.Text = tt.ToString();
         }
 
-        private void btnIn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnTimKiem_Click(object sender, EventArgs e)
-        {
-            if (cbMaDonHang.Text == "")
-            {
-                MessageBox.Show("Bạn phải chọn một mã hóa đơn để tìm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                cbMaHang.Focus();
-                return;
-            }
-            txtMaHoaDon.Text = cbMaDonHang.Text;
-            LoadInfoSaleReceipt();
-            LoadDataGridView();
-            btnDong.Enabled = true;
-            btnLuu.Enabled = true;
-            btnIn.Enabled = true;
-            cbMaHang.SelectedIndex = -1;
-        }
-
         private void txtSoLuong_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
@@ -324,6 +450,7 @@ namespace store_management
                 e.Handled = true;
         }
 
+        // handle datagridview events
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             string MaHangXoa, sql;
@@ -340,13 +467,48 @@ namespace store_management
                     " where sale_receipt_id = '" + txtMaHoaDon.Text + "' and product_id = '" + MaHangXoa + "'";
                 db.DataChange(sql);
                 // TODO: update quantity for product
-                Tong = Convert.ToDouble(helper.GetFieldValues("select total from sale_receipt" +
-                    " where id = '" + txtMaHoaDon.Text + "'"));
+                Tong = Convert.ToDouble(helper.GetFieldValues("SELECT total from sale_receipt" +
+                                                                " where id = '" + txtMaHoaDon.Text + "'"));
                 TongMoi = Tong - ThanhTienXoa;
-                sql = "update sale_receipt set total = '" + TongMoi + "' where id = '" + txtMaHoaDon.Text + "'";
+                sql = "update sale_receipt set total = '" + TongMoi +
+                        "' where id = '" + txtMaHoaDon.Text + "'";
                 db.DataChange(sql);
                 txtTongTien.Text = TongMoi.ToString();
                 LoadDataGridView();
+            }
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            double sl, slcon, slxoa;
+            if (MessageBox.Show("Bạn có chắc chắn muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                string sql = "SELECT MaSP, SLBan FROM ChiTietHDB " +
+                             "WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+                DataTable tblHang = db.DataReader(sql);
+                for (int hang = 0; hang <= tblHang.Rows.Count - 1; hang++)
+                {
+                    // Cập nhật lại số lượng cho các mặt hàng
+                    sl = Convert.ToDouble(helper.GetFieldValues("SELECT inventory from product" +
+                        " where id = '" + tblHang.Rows[hang][0].ToString() + "'"));
+                    slxoa = Convert.ToDouble(tblHang.Rows[hang][1].ToString());
+                    slcon = sl + slxoa;
+                    sql = "update product set inventory =" + slcon + 
+                        " where id = '" + tblHang.Rows[hang][0].ToString() + "'";
+                    db.DataChange(sql);
+                }
+
+                //Xóa chi tiết hóa đơn
+                sql = "DELETE ChiTietHDB WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+                db.DataChange(sql);
+
+                //Xóa hóa đơn
+                sql = "DELETE HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+                db.DataChange(sql);
+                ResetValues();
+                LoadDataGridView();
+                btnXoa.Enabled = false;
+                btnIn.Enabled = false;
             }
         }
     }

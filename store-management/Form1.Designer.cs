@@ -57,6 +57,7 @@
             this.txtDonGia = new System.Windows.Forms.TextBox();
             this.txtGiamGia = new System.Windows.Forms.TextBox();
             this.txtTenHang = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtSoLuong = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -69,10 +70,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnDong = new System.Windows.Forms.Button();
             this.btnIn = new System.Windows.Forms.Button();
-            this.btnHuy = new System.Windows.Forms.Button();
+            this.btnXoa = new System.Windows.Forms.Button();
             this.btnLuu = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -302,6 +302,7 @@
             this.groupBox2.Controls.Add(this.txtDonGia);
             this.groupBox2.Controls.Add(this.txtGiamGia);
             this.groupBox2.Controls.Add(this.txtTenHang);
+            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.txtSoLuong);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
@@ -314,7 +315,7 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.btnDong);
             this.groupBox2.Controls.Add(this.btnIn);
-            this.groupBox2.Controls.Add(this.btnHuy);
+            this.groupBox2.Controls.Add(this.btnXoa);
             this.groupBox2.Controls.Add(this.btnLuu);
             this.groupBox2.Controls.Add(this.btnThem);
             this.groupBox2.Location = new System.Drawing.Point(12, 250);
@@ -327,7 +328,9 @@
             // lbTotalByString
             // 
             this.lbTotalByString.AutoSize = true;
-            this.lbTotalByString.Location = new System.Drawing.Point(6, 284);
+            this.lbTotalByString.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.lbTotalByString.ForeColor = System.Drawing.Color.Blue;
+            this.lbTotalByString.Location = new System.Drawing.Point(6, 311);
             this.lbTotalByString.Name = "lbTotalByString";
             this.lbTotalByString.Size = new System.Drawing.Size(63, 15);
             this.lbTotalByString.TabIndex = 18;
@@ -366,6 +369,7 @@
             this.txtGiamGia.Name = "txtGiamGia";
             this.txtGiamGia.Size = new System.Drawing.Size(200, 23);
             this.txtGiamGia.TabIndex = 18;
+            this.txtGiamGia.TextChanged += new System.EventHandler(this.txtGiamGia_TextChanged);
             this.txtGiamGia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtGiamGia_KeyPress);
             // 
             // txtTenHang
@@ -376,6 +380,17 @@
             this.txtTenHang.ReadOnly = true;
             this.txtTenHang.Size = new System.Drawing.Size(200, 23);
             this.txtTenHang.TabIndex = 17;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(699, 272);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(155, 15);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Nháy đúp một dòng để xóa";
             // 
             // txtSoLuong
             // 
@@ -459,7 +474,7 @@
             // 
             // txtTongTien
             // 
-            this.txtTongTien.Location = new System.Drawing.Point(711, 296);
+            this.txtTongTien.Location = new System.Drawing.Point(66, 272);
             this.txtTongTien.Name = "txtTongTien";
             this.txtTongTien.ReadOnly = true;
             this.txtTongTien.Size = new System.Drawing.Size(143, 23);
@@ -469,7 +484,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.Blue;
-            this.label4.Location = new System.Drawing.Point(648, 299);
+            this.label4.Location = new System.Drawing.Point(6, 276);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 15);
             this.label4.TabIndex = 6;
@@ -499,16 +514,17 @@
             this.btnIn.UseVisualStyleBackColor = true;
             this.btnIn.Click += new System.EventHandler(this.btnIn_Click);
             // 
-            // btnHuy
+            // btnXoa
             // 
-            this.btnHuy.Image = ((System.Drawing.Image)(resources.GetObject("btnHuy.Image")));
-            this.btnHuy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHuy.Location = new System.Drawing.Point(380, 334);
-            this.btnHuy.Name = "btnHuy";
-            this.btnHuy.Size = new System.Drawing.Size(100, 23);
-            this.btnHuy.TabIndex = 2;
-            this.btnHuy.Text = "Xóa";
-            this.btnHuy.UseVisualStyleBackColor = true;
+            this.btnXoa.Image = ((System.Drawing.Image)(resources.GetObject("btnXoa.Image")));
+            this.btnXoa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnXoa.Location = new System.Drawing.Point(380, 334);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(100, 23);
+            this.btnXoa.TabIndex = 2;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnLuu
             // 
@@ -534,17 +550,6 @@
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(671, 631);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(201, 21);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Nháy đúp một dòng để xóa";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -556,7 +561,6 @@
             this.Controls.Add(this.cbMaDonHang);
             this.Controls.Add(this.btnTimKiem);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label3);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -596,7 +600,7 @@
         private Label label3;
         private Button btnDong;
         private Button btnIn;
-        private Button btnHuy;
+        private Button btnXoa;
         private Button btnLuu;
         private Button btnThem;
         private Label label11;
