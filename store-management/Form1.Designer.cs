@@ -34,6 +34,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.cbMaKH = new System.Windows.Forms.ComboBox();
             this.txtSDT = new System.Windows.Forms.MaskedTextBox();
             this.txtNgayBan = new System.Windows.Forms.DateTimePicker();
@@ -72,7 +73,6 @@
             this.btnHuy = new System.Windows.Forms.Button();
             this.btnLuu = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
-            this.label19 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -142,6 +142,15 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin chung";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 184);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(44, 15);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "label19";
             // 
             // cbMaKH
             // 
@@ -529,15 +538,6 @@
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 184);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(44, 15);
-            this.label19.TabIndex = 6;
-            this.label19.Text = "label19";
             // 
             // Form1
             // 

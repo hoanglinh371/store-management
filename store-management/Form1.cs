@@ -186,5 +186,6 @@ namespace store_management
             db.DataChange(sql);
             LoadDataGridView();
         }
+
     }
 }
