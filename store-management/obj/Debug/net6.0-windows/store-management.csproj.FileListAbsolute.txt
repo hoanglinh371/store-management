@@ -23,6 +23,7 @@ C:\Users\hoang\Workspace\winform\store-management\store-management\bin\Debug\net
 C:\Users\hoang\Workspace\winform\store-management\store-management\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\hoang\Workspace\winform\store-management\store-management\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.CopyComplete
+<<<<<<< HEAD
 C:\Users\Admin\Desktop\store-management\store-management\bin\Debug\net6.0-windows\store-management.exe
 C:\Users\Admin\Desktop\store-management\store-management\bin\Debug\net6.0-windows\store-management.deps.json
 C:\Users\Admin\Desktop\store-management\store-management\bin\Debug\net6.0-windows\store-management.runtimeconfig.json
@@ -51,3 +52,9 @@ C:\Users\Admin\Desktop\store-management\store-management\obj\Debug\net6.0-window
 C:\Users\Admin\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.genruntimeconfig.cache
 C:\Users\Admin\Desktop\store-management\store-management\obj\Debug\net6.0-windows\ref\store-management.dll
 C:\Users\Admin\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.FormNhanVien.resources
+=======
+C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.FormLogin.resources
+C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.Dashboard.resources
+C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.ResolveComReference.cache
+>>>>>>> f053cfd989dda21db2afb3b3cdeb78d893c1e0e1
