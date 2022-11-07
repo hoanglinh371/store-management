@@ -3,14 +3,14 @@ using System.Data;
 using System.Data.SqlClient;
 using COMExcel = Microsoft.Office.Interop.Excel;
 
-namespace store_management
+namespace store_management.views
 {
-    public partial class Form1 : Form
+    public partial class FormHoaDonBan : Form
     {
         private DatabaseConnect db = new DatabaseConnect();
         private Helper helper = new Helper();
 
-        public Form1()
+        public FormHoaDonBan()
         {
             InitializeComponent();
         }
@@ -94,12 +94,8 @@ namespace store_management
         }
 
         // handle form events
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Environment.Exit(1);
-        }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormHoaDonBan_Load(object sender, EventArgs e)
         {
             LoadStaff();
             LoadCustomer();
@@ -117,6 +113,7 @@ namespace store_management
             cbMaHang.Enabled = false;
             txtGiamGia.Enabled = false;
             txtSoLuong.Enabled = false;
+
         }
 
         // handle combox events
@@ -264,7 +261,7 @@ namespace store_management
 
         private void btnDong_Click(object sender, EventArgs e)
         {
-            Environment.Exit(1);
+            this.Close();
         }
 
         private void btnIn_Click(object sender, EventArgs e)
@@ -355,7 +352,7 @@ namespace store_management
             exRange.Range["A1:F1"].Font.Bold = true;
             exRange.Range["A1:F1"].Font.Italic = true;
             exRange.Range["A1:F1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignRight;
-            exRange.Range["A1:F1"].Value = "Bằng chữ: " + 
+            exRange.Range["A1:F1"].Value = "Bằng chữ: " +
                 helper.ConvertNumberToString(Convert.ToDouble(tblThongtinHD.Rows[0][2].ToString()));
             exRange = exSheet.Cells[4][hang + 17]; //Ô A1 
             exRange.Range["A1:C1"].MergeCells = true;
@@ -396,7 +393,7 @@ namespace store_management
             btnIn.Enabled = true;
             cbMaHang.SelectedIndex = -1;
         }
-        
+
         // handle textbox events
         private void txtSoLuong_TextChanged(object sender, EventArgs e)
         {
@@ -491,7 +488,7 @@ namespace store_management
                         "WHERE MaSP = '" + tblHang.Rows[hang][0].ToString() + "'"));
                     slxoa = Convert.ToDouble(tblHang.Rows[hang][1].ToString());
                     slcon = sl + slxoa;
-                    sql = "UPDATE SanPham SET SoLuongTonKho = " + slcon + 
+                    sql = "UPDATE SanPham SET SoLuongTonKho = " + slcon +
                         " WHERE MaSP = '" + tblHang.Rows[hang][0].ToString() + "'";
                     db.DataChange(sql);
                 }
@@ -509,6 +506,5 @@ namespace store_management
                 btnIn.Enabled = false;
             }
         }
-
     }
 }

@@ -183,5 +183,10 @@ namespace store_management.views
             }
             dgvNhanVien.DataSource = db.DataReader(sql);
         }
+
+        private void btnDong_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

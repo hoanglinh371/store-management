@@ -1,6 +1,6 @@
-﻿namespace store_management
+﻿namespace store_management.views
 {
-    partial class Form1
+    partial class FormHoaDonBan
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,13 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHoaDonBan));
             this.label1 = new System.Windows.Forms.Label();
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.cbMaDonHang = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.cbMaKH = new System.Windows.Forms.ComboBox();
             this.txtSDT = new System.Windows.Forms.MaskedTextBox();
             this.txtNgayBan = new System.Windows.Forms.DateTimePicker();
@@ -143,15 +142,6 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin chung";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 184);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(44, 15);
-            this.label19.TabIndex = 6;
-            this.label19.Text = "label19";
             // 
             // cbMaKH
             // 
@@ -560,7 +550,7 @@
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
-            // Form1
+            // FormHoaDonBan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -571,10 +561,9 @@
             this.Controls.Add(this.cbMaDonHang);
             this.Controls.Add(this.btnTimKiem);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "FormHoaDonBan";
             this.Text = "Form1";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.FormHoaDonBan_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

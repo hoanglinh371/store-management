@@ -176,5 +176,10 @@ namespace store_management.views
             } 
             dgvKhachHang.DataSource = db.DataReader(sql);
         }
+
+        private void btnDong_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
