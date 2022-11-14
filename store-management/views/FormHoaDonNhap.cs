@@ -5,12 +5,12 @@ using COMExcel = Microsoft.Office.Interop.Excel;
 
 namespace store_management.views
 {
-    public partial class FormHoaDonBan : Form
+    public partial class FormHoaDonNhap : Form
     {
         private DatabaseConnect db = new DatabaseConnect();
         private Helper helper = new Helper();
 
-        public FormHoaDonBan()
+        public FormHoaDonNhap()
         {
             InitializeComponent();
         }
@@ -19,9 +19,9 @@ namespace store_management.views
         private void ResetValues()
         {
             txtMaHoaDon.Text = "";
-            txtNgayBan.Text = DateTime.Now.ToShortDateString();
+            txtNgayNhap.Text = DateTime.Now.ToShortDateString();
             cbMaNV.Text = "";
-            cbMaKH.Text = "";
+            cbMaNCC.Text = "";
             txtTongTien.Text = "0";
             // lblBangChu.Text = "Bằng chữ: ";
             cbMaHang.Text = "";
@@ -47,9 +47,9 @@ namespace store_management.views
 
         void LoadCustomer()
         {
-            string sql = "SELECT * FROM KhachHang";
-            helper.FillCombo(sql, cbMaKH, "MaKH", "MaKH");
-            cbMaKH.SelectedIndex = -1;
+            string sql = "SELECT * FROM NhaCungCap";
+            helper.FillCombo(sql, cbMaNCC, "MaNCC", "MaNCC");
+            cbMaNCC.SelectedIndex = -1;
         }
 
         void LoadProduct()
@@ -61,17 +61,17 @@ namespace store_management.views
 
         void LoadSaleReceipt()
         {
-            string sql = "SELECT * FROM HoaDonBan";
-            helper.FillCombo(sql, cbMaDonHang, "SoHDB", "SoHDB");
+            string sql = "SELECT * FROM HoaDonNhap";
+            helper.FillCombo(sql, cbMaDonHang, "SoHDN", "SoHDN");
             cbMaDonHang.SelectedIndex = -1;
         }
 
         void LoadDataGridView()
         {
-            string sql = "SELECT CTHDB.MaSP, SP.TenSP, CTHDB.SLBan, SP.DonGiaBan, CTHDB.GiamGia, CTHDB.ThanhTien " +
-                "FROM ChiTietHDB AS CTHDB " +
-                "INNER JOIN SanPham AS SP ON CTHDB.MaSP = SP.MaSP " +
-                "WHERE CTHDB.SoHDB = '" + txtMaHoaDon.Text + "'";
+            string sql = "SELECT CTHDN.MaSP, SP.TenSP, CTHDN.SLNhap, SP.DonGiaBan, CTHDN.GiamGia, CTHDN.ThanhTien " +
+                "FROM ChiTietHDN AS CTHDN " +
+                "INNER JOIN SanPham AS SP ON CTHDN.MaSP = SP.MaSP " +
+                "WHERE CTHDN.SoHDN = '" + txtMaHoaDon.Text + "'";
             dataGridView1.DataSource = db.DataReader(sql);
             dataGridView1.Columns[0].HeaderText = "Mã Hàng";
             dataGridView1.Columns[1].HeaderText = "Tên hàng";
@@ -83,19 +83,19 @@ namespace store_management.views
 
         void LoadInfoSaleReceipt()
         {
-            string sql = "SELECT NgayBan FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
-            txtNgayBan.Text = helper.GetFieldValues(sql);
-            sql = "SELECT MaNV FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+            string sql = "SELECT NgayNhap FROM HoaDonNhap WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
+            txtNgayNhap.Text = helper.GetFieldValues(sql);
+            sql = "SELECT MaNV FROM HoaDonNhap WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
             cbMaNV.Text = helper.GetFieldValues(sql);
-            sql = "SELECT MaKH FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
-            cbMaKH.Text = helper.GetFieldValues(sql);
-            sql = "SELECT TriGia FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+            sql = "SELECT MaNCC FROM HoaDonNhap WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
+            cbMaNCC.Text = helper.GetFieldValues(sql);
+            sql = "SELECT TriGia FROM HoaDonNhap WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
             txtTongTien.Text = helper.GetFieldValues(sql);
         }
 
         // handle form events
 
-        private void FormHoaDonBan_Load(object sender, EventArgs e)
+        private void FormHoaDonNhap_Load(object sender, EventArgs e)
         {
             LoadStaff();
             LoadCustomer();
@@ -109,7 +109,7 @@ namespace store_management.views
             txtGiamGia.Text = "0";
             txtThanhTien.Text = "0";
             cbMaNV.Enabled = false;
-            cbMaKH.Enabled = false;
+            cbMaNCC.Enabled = false;
             cbMaHang.Enabled = false;
             txtGiamGia.Enabled = false;
             txtSoLuong.Enabled = false;
@@ -123,15 +123,15 @@ namespace store_management.views
             txtTenNV.Text = helper.GetFieldValues(sql);
         }
 
-        private void cbMaKH_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbMaNCC_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string sql = "SELECT TenKH FROM KhachHang WHERE MaKH = '" + cbMaKH.SelectedValue + "'";
-            txtTenKH.Text = helper.GetFieldValues(sql);
+            string sql = "SELECT TenNCC FROM NhaCungCap WHERE MaNCC = '" + cbMaNCC.SelectedValue + "'";
+            txtTenNCC.Text = helper.GetFieldValues(sql);
 
-            sql = "SELECT DiaChi FROM KhachHang WHERE MaKH = '" + cbMaKH.SelectedValue + "'";
+            sql = "SELECT DiaChi FROM NhaCungCap WHERE MaNCC = '" + cbMaNCC.SelectedValue + "'";
             txtDiaChi.Text = helper.GetFieldValues(sql);
 
-            sql = "SELECT SDT FROM KhachHang WHERE MaKH = '" + cbMaKH.SelectedValue + "'";
+            sql = "SELECT SDT FROM NhaCungCap WHERE MaNCC = '" + cbMaNCC.SelectedValue + "'";
             txtSDT.Text = helper.GetFieldValues(sql);
         }
 
@@ -154,7 +154,7 @@ namespace store_management.views
             btnThem.Enabled = false;
 
             cbMaNV.Enabled = true;
-            cbMaKH.Enabled = true;
+            cbMaNCC.Enabled = true;
             cbMaHang.Enabled = true;
             txtGiamGia.Enabled = true;
             txtSoLuong.Enabled = true;
@@ -166,13 +166,13 @@ namespace store_management.views
             btnXoa.Enabled = true;
             string sql;
             double quantity, total, newTotal;
-            sql = "SELECT SoHDB FROM HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+            sql = "SELECT SoHDN FROM HoaDonNhap WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
             if (!helper.CheckKey(sql))
             {
-                if (txtNgayBan.Text.Length == 0)
+                if (txtNgayNhap.Text.Length == 0)
                 {
-                    MessageBox.Show("Bạn phải nhập ngày bán", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    txtNgayBan.Focus();
+                    MessageBox.Show("Bạn phải nhập ngày nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtNgayNhap.Focus();
                     return;
                 }
                 if (cbMaNV.Text.Length == 0)
@@ -181,17 +181,17 @@ namespace store_management.views
                     cbMaNV.Focus();
                     return;
                 }
-                if (cbMaKH.Text.Length == 0)
+                if (cbMaNCC.Text.Length == 0)
                 {
-                    MessageBox.Show("Bạn phải nhập khách hàng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    cbMaKH.Focus();
+                    MessageBox.Show("Bạn phải nhập nhà cung cấp", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cbMaNCC.Focus();
                     return;
                 }
-                sql = "INSERT INTO HoaDonBan(SoHDB, MaNV, MaKH, NgayBan, TriGia) " +
+                sql = "INSERT INTO HoaDonNhap(SoHDN, MaNV, MaNCC, NgayNhap, TriGia) " +
                     "VALUES ('" + txtMaHoaDon.Text.Trim() + "'," +
                     "'" + cbMaNV.SelectedValue + "'," +
-                    "'" + cbMaKH.SelectedValue + "'," +
-                    "'" + txtNgayBan.Value + "'," +
+                    "'" + cbMaNCC.SelectedValue + "'," +
+                    "'" + txtNgayNhap.Value + "'," +
                     "'" + txtTongTien.Text + "'" +
                     ")";
                 db.DataChange(sql);
@@ -216,11 +216,11 @@ namespace store_management.views
                 txtGiamGia.Focus();
                 return;
             }
-            sql = "SELECT MaSP FROM ChiTietHDB " +
-                "WHERE MaSP = '" + cbMaHang.SelectedValue + "'" + " AND SoHDB = '" + txtMaHoaDon.Text + "'";
+            sql = "SELECT MaSP FROM ChiTietHDN " +
+                "WHERE MaSP = '" + cbMaHang.SelectedValue + "'" + " AND SoHDN = '" + txtMaHoaDon.Text + "'";
             if (helper.CheckKey(sql))
             {
-                MessageBox.Show("Mã hàng này đã có, bạn phải nhập mã khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Mã hàng này đã có, hãy phải nhập mã khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cbMaHang.Focus();
                 return;
             }
@@ -228,7 +228,7 @@ namespace store_management.views
                                                               "WHERE MaSP = '" + cbMaHang.SelectedValue + "'"));
             if (Convert.ToDouble(txtSoLuong.Text) > quantity)
             {
-                MessageBox.Show("Số lượng mặt hàng này chỉ còn " + quantity,
+                MessageBox.Show("Số lượng mặt hàng này còn " + quantity,
                                     "Thông báo",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information
@@ -237,7 +237,7 @@ namespace store_management.views
                 txtSoLuong.Focus();
                 return;
             }
-            sql = "INSERT INTO ChiTietHDB(SoHDB, MaSP, SLBan, DonGia, GiamGia, ThanhTien) " +
+            sql = "INSERT INTO ChiTietHDN(SoHDN, MaSP, SLNhap, DonGia, GiamGia, ThanhTien) " +
                 "VALUES (" +
                 "'" + txtMaHoaDon.Text + "'," +
                 "'" + cbMaHang.SelectedValue + "'," +
@@ -248,11 +248,11 @@ namespace store_management.views
                 ")";
             db.DataChange(sql);
             LoadDataGridView();
-            total = Convert.ToDouble(helper.GetFieldValues("SELECT TriGia FROM HoaDonBan " +
-                                                           "WHERE SoHDB = '" + txtMaHoaDon.Text + "'"));
+            total = Convert.ToDouble(helper.GetFieldValues("SELECT TriGia FROM HoaDonNhap " +
+                                                           "WHERE SoHDN = '" + txtMaHoaDon.Text + "'"));
             newTotal = total + Convert.ToDouble(txtThanhTien.Text);
-            sql = "UPDATE HoaDonBan SET TriGia = '" + newTotal + "'" +
-                    "WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+            sql = "UPDATE HoaDonNhap SET TriGia = '" + newTotal + "'" +
+                    "WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
             db.DataChange(sql);
             txtTongTien.Text = newTotal.ToString();
             lbTotalByString.Text = "Bằng chữ: " + helper.ConvertNumberToString(newTotal);
@@ -317,7 +317,7 @@ namespace store_management.views
             exRange.Range["C9:E9"].Value = tblThongtinHD.Rows[0][5].ToString();
 
             // sale_receipt_detail infomations
-            sql = "SELECT * FROM func_lay_cthdb('" + txtMaHoaDon.Text + "')";
+            sql = "SELECT * FROM func_lay_CTHDN('" + txtMaHoaDon.Text + "')";
             tblThongtinHang = db.DataReader(sql);
 
             // title
@@ -449,24 +449,24 @@ namespace store_management.views
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             string MaHangXoa, sql;
-            double ThanhTienXoa, SLXoa,Tong, TongMoi;
+            double ThanhTienXoa, SLXoa, Tong, TongMoi;
 
             var res = MessageBox.Show("Bạn có chắc chắn muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes)
             {
                 MaHangXoa = dataGridView1.CurrentRow.Cells["MaSP"].Value.ToString();
-                SLXoa = Convert.ToDouble(dataGridView1.CurrentRow.Cells["SLBan"].Value.ToString());
+                SLXoa = Convert.ToDouble(dataGridView1.CurrentRow.Cells["SLNhap"].Value.ToString());
                 ThanhTienXoa = Convert.ToDouble(dataGridView1.CurrentRow.Cells["DonGiaBan"].Value.ToString());
 
-                sql = "DELETE ChiTietHDB " +
-                    "WHERE SoHDB = '" + txtMaHoaDon.Text + "' AND MaSP = '" + MaHangXoa + "'";
+                sql = "DELETE ChiTietHDN " +
+                    "WHERE SoHDN = '" + txtMaHoaDon.Text + "' AND MaSP = '" + MaHangXoa + "'";
                 db.DataChange(sql);
                 // TODO: update quantity for product
-                Tong = Convert.ToDouble(helper.GetFieldValues("SELECT TriGia FROM HoaDonBan " +
-                                                                "WHERE SoHDB = '" + txtMaHoaDon.Text + "'"));
+                Tong = Convert.ToDouble(helper.GetFieldValues("SELECT TriGia FROM HoaDonNhap " +
+                                                                "WHERE SoHDN = '" + txtMaHoaDon.Text + "'"));
                 TongMoi = Tong - ThanhTienXoa;
-                sql = "UPDATE HoaDonBan SET TriGia = '" + TongMoi +
-                        "' WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+                sql = "UPDATE HoaDonNhap SET TriGia = '" + TongMoi +
+                        "' WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
                 db.DataChange(sql);
                 txtTongTien.Text = TongMoi.ToString();
                 LoadDataGridView();
@@ -478,8 +478,8 @@ namespace store_management.views
             double sl, slcon, slxoa;
             if (MessageBox.Show("Bạn có chắc chắn muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                string sql = "SELECT MaSP, SLBan FROM ChiTietHDB " +
-                             "WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+                string sql = "SELECT MaSP, SLNhap FROM ChiTietHDN " +
+                             "WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
                 DataTable tblHang = db.DataReader(sql);
                 for (int hang = 0; hang <= tblHang.Rows.Count - 1; hang++)
                 {
@@ -494,17 +494,32 @@ namespace store_management.views
                 }
 
                 //Xóa chi tiết hóa đơn
-                sql = "DELETE ChiTietHDB WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+                sql = "DELETE ChiTietHDN WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
                 db.DataChange(sql);
 
                 //Xóa hóa đơn
-                sql = "DELETE HoaDonBan WHERE SoHDB = '" + txtMaHoaDon.Text + "'";
+                sql = "DELETE HoaDonNhap WHERE SoHDN = '" + txtMaHoaDon.Text + "'";
                 db.DataChange(sql);
                 ResetValues();
                 LoadDataGridView();
                 btnXoa.Enabled = false;
                 btnIn.Enabled = false;
             }
+        }
+
+        private void FormHoaDonNhap_Click(object sender, EventArgs e)
+        {
+            btnThem.Enabled = true;
+            btnLuu.Enabled = false;
+            btnXoa.Enabled = false;
+            btnIn.Enabled = false;
+            txtGiamGia.Text = "0";
+            txtThanhTien.Text = "0";
+            cbMaNV.Enabled = false;
+            cbMaNCC.Enabled = false;
+            cbMaHang.Enabled = false;
+            txtGiamGia.Enabled = false;
+            txtSoLuong.Enabled = false;
         }
     }
 }

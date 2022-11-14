@@ -229,7 +229,7 @@ CREATE TABLE ChiTietHDN
 (
 	SoHDN VARCHAR(20) NOT NULL,
 	MaSP VARCHAR(20) NOT NULL,
-	SLBan INT NOT NULL,
+	SLNhap INT NOT NULL,
 	DonGia FLOAT NOT NULL,
 	GiamGia FLOAT NOT NULL,
 	ThanhTien FLOAT NOT NULL,
@@ -238,13 +238,13 @@ CREATE TABLE ChiTietHDN
 	FOREIGN KEY (MaSP) REFERENCES SanPham(MaSP),
 )
 
-INSERT INTO ChiTietHDN(SoHDN, MaSP, SLBan, DonGia, GiamGia, ThanhTien) VALUES ('HDN01', 'SP01', '2', '100000', '0', '200000')
-INSERT INTO ChiTietHDN(SoHDN, MaSP, SLBan, DonGia, GiamGia, ThanhTien) VALUES ('HDN01', 'SP02', '1', '100000', '0', '100000')
-INSERT INTO ChiTietHDN(SoHDN, MaSP, SLBan, DonGia, GiamGia, ThanhTien) VALUES ('HDN02', 'SP05', '3', '100000', '0', '300000')
-INSERT INTO ChiTietHDN(SoHDN, MaSP, SLBan, DonGia, GiamGia, ThanhTien) VALUES ('HDN02', 'SP06', '3', '100000', '0', '300000')
-INSERT INTO ChiTietHDN(SoHDN, MaSP, SLBan, DonGia, GiamGia, ThanhTien) VALUES ('HDN03', 'SP09', '2', '100000', '0', '200000')
-INSERT INTO ChiTietHDN(SoHDN, MaSP, SLBan, DonGia, GiamGia, ThanhTien) VALUES ('HDN04', 'SP07', '6', '100000', '0', '600000')
-INSERT INTO ChiTietHDN(SoHDN, MaSP, SLBan, DonGia, GiamGia, ThanhTien) VALUES ('HDN04', 'SP02', '6', '100000', '0', '600000')
+INSERT INTO ChiTietHDN(SoHDN, MaSP, SLNhap, DonGia, GiamGia, ThanhTien) VALUES ('HDN01', 'SP01', '2', '100000', '0', '200000')
+INSERT INTO ChiTietHDN(SoHDN, MaSP, SLNhap, DonGia, GiamGia, ThanhTien) VALUES ('HDN01', 'SP02', '1', '100000', '0', '100000')
+INSERT INTO ChiTietHDN(SoHDN, MaSP, SLNhap, DonGia, GiamGia, ThanhTien) VALUES ('HDN02', 'SP05', '3', '100000', '0', '300000')
+INSERT INTO ChiTietHDN(SoHDN, MaSP, SLNhap, DonGia, GiamGia, ThanhTien) VALUES ('HDN02', 'SP06', '3', '100000', '0', '300000')
+INSERT INTO ChiTietHDN(SoHDN, MaSP, SLNhap, DonGia, GiamGia, ThanhTien) VALUES ('HDN03', 'SP09', '2', '100000', '0', '200000')
+INSERT INTO ChiTietHDN(SoHDN, MaSP, SLNhap, DonGia, GiamGia, ThanhTien) VALUES ('HDN04', 'SP07', '6', '100000', '0', '600000')
+INSERT INTO ChiTietHDN(SoHDN, MaSP, SLNhap, DonGia, GiamGia, ThanhTien) VALUES ('HDN04', 'SP02', '6', '100000', '0', '600000')
 
 SELECT * FROM ChiTietHDN
 
