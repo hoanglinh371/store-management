@@ -10,7 +10,7 @@ namespace store_management
 {
     internal class DatabaseConnect
     {
-        public string connectionString = "Data Source=DESKTOP-6E87L8F\\SQLEXPRESS;Database=crown_store_dev;Integrated Security=true";
+        public string connectionString = "Data Source=LAPTOP-NRCHCBLB\\LHOANGHAI;Initial Catalog=crown_store_dev;Integrated Security=True";
         public SqlConnection connect = new SqlConnection();
 
         public void Open()
