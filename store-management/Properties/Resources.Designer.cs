@@ -113,6 +113,7 @@ namespace store_management.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+<<<<<<< HEAD
         internal static System.Drawing.Bitmap logout {
             get {
                 object obj = ResourceManager.GetObject("logout", resourceCulture);
@@ -176,6 +177,11 @@ namespace store_management.Properties {
         internal static System.Drawing.Bitmap search {
             get {
                 object obj = ResourceManager.GetObject("search", resourceCulture);
+=======
+        internal static System.Drawing.Bitmap user {
+            get {
+                object obj = ResourceManager.GetObject("user", resourceCulture);
+>>>>>>> 5dc2ba69bb571c121c239e051f398cc86fa92ff2
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

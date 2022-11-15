@@ -27,7 +27,7 @@ namespace store_management.helpers
             string ma = "";
             SqlCommand cmd = new SqlCommand(sql, db.connect);
             SqlDataReader reader;
-            db.Open();
+            this.db.Open();
             reader = cmd.ExecuteReader();
             while (reader.Read())
                 ma = reader.GetValue(0).ToString();
