@@ -12,6 +12,38 @@ C:\Users\hoang\Workspace\winform\store-management\store-management\bin\Debug\net
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.AssemblyReference.cache
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\Interop.Microsoft.Office.Interop.Excel.dll
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.ResolveComReference.cache
+<<<<<<< HEAD
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\store-management.exe
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\store-management.deps.json
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\store-management.runtimeconfig.json
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\store-management.dll
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\store-management.pdb
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\DELL\Desktop\store-management\store-management\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.AssemblyReference.cache
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.ResolveComReference.cache
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store_management.Form1.resources
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store_management.Properties.Resources.resources
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.Dashboard.resources
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.FormLogin.resources
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.FormSanPham.resources
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.GenerateResource.cache
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.AssemblyInfoInputs.cache
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.AssemblyInfo.cs
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.csproj.CopyComplete
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.dll
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\refint\store-management.dll
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.pdb
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\store-management.genruntimeconfig.cache
+C:\Users\DELL\Desktop\store-management\store-management\obj\Debug\net6.0-windows\ref\store-management.dll
+=======
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store_management.Properties.Resources.resources
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.Dashboard.resources
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.FormKhachHang.resources
@@ -29,3 +61,4 @@ C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store-management.genruntimeconfig.cache
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\ref\store-management.dll
 C:\Users\hoang\Workspace\winform\store-management\store-management\obj\Debug\net6.0-windows\store_management.views.FormHoaDonBan.resources
+>>>>>>> 5dc2ba69bb571c121c239e051f398cc86fa92ff2

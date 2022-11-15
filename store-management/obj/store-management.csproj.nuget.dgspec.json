@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hoang\\Workspace\\winform\\store-management\\store-management\\store-management.csproj": {}
+    "C:\\Users\\DELL\\Desktop\\store-management\\store-management\\store-management.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hoang\\Workspace\\winform\\store-management\\store-management\\store-management.csproj": {
+    "C:\\Users\\DELL\\Desktop\\store-management\\store-management\\store-management.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hoang\\Workspace\\winform\\store-management\\store-management\\store-management.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\store-management\\store-management\\store-management.csproj",
         "projectName": "store-management",
-        "projectPath": "C:\\Users\\hoang\\Workspace\\winform\\store-management\\store-management\\store-management.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hoang\\Workspace\\winform\\store-management\\store-management\\obj\\",
+        "projectPath": "C:\\Users\\DELL\\Desktop\\store-management\\store-management\\store-management.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DELL\\Desktop\\store-management\\store-management\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
